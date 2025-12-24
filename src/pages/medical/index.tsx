@@ -1,0 +1,138 @@
+import React from "react";
+import { DUMMY_RECORDS } from "../../constants";
+
+interface Props {
+  onBack: () => void;
+}
+
+const MedicalRecordsScreen: React.FC<Props> = ({ onBack }) => {
+  return (
+    <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+      <div className="sticky top-0 z-20 flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md p-4 pb-2 justify-between border-b border-slate-200 dark:border-slate-800">
+        <button
+          onClick={onBack}
+          className="text-slate-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          <span className="material-symbols-outlined">arrow_back</span>
+        </button>
+        <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">
+          Hồ sơ khám
+        </h2>
+      </div>
+
+      <div className="sticky top-[60px] z-10 bg-background-light dark:bg-background-dark pt-2 pb-4">
+        <div className="flex gap-3 px-4 overflow-x-auto no-scrollbar snap-x">
+          {[
+            "Tất cả",
+            "Khám tổng quát",
+            "Niềng răng",
+            "Nhổ răng",
+            "Tẩy trắng",
+          ].map((filter, i) => (
+            <button
+              key={i}
+              className={`flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 snap-start transition-all active:scale-95 ${
+                i === 0
+                  ? "bg-primary text-white shadow-md shadow-primary/20"
+                  : "bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+              }`}
+            >
+              <p className="text-sm font-semibold">{filter}</p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col px-4 pb-32">
+        {DUMMY_RECORDS.map((record, index) => (
+          <div
+            key={record.id}
+            className="grid grid-cols-[40px_1fr] gap-x-3 group"
+          >
+            <div className="flex flex-col items-center pt-2">
+              <div
+                className={`relative flex items-center justify-center size-8 rounded-full z-10 border-2 border-background-light dark:border-background-dark ${getIconBackground(
+                  record.type
+                )}`}
+              >
+                <span className="material-symbols-outlined text-[18px] fill">
+                  {getIcon(record.type)}
+                </span>
+              </div>
+              {index !== DUMMY_RECORDS.length - 1 && (
+                <div className="w-[2px] bg-slate-200 dark:bg-slate-700 h-full -mt-2 rounded-b-full"></div>
+              )}
+            </div>
+            <div className="flex flex-1 flex-col pb-6">
+              <div className="bg-white dark:bg-surface-dark p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-shadow cursor-pointer">
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold px-2 py-1 rounded-md">
+                      {record.date}
+                    </span>
+                    <span className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs font-medium px-2 py-1 rounded-md flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[14px]">
+                        check
+                      </span>{" "}
+                      Hoàn thành
+                    </span>
+                  </div>
+                  <span className="material-symbols-outlined text-slate-400 text-xl">
+                    chevron_right
+                  </span>
+                </div>
+                <h3 className="text-slate-900 dark:text-white text-base font-bold leading-tight mb-1">
+                  {record.title}
+                </h3>
+                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm mb-3">
+                  <span className="material-symbols-outlined text-[16px]">
+                    person
+                  </span>
+                  <span>{record.doctor}</span>
+                </div>
+                <div className="text-slate-600 dark:text-slate-300 text-sm bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg border border-slate-100 dark:border-slate-700/50">
+                  <p className="line-clamp-2">{record.summary}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="fixed bottom-0 z-30 w-full max-w-md bg-white/90 dark:bg-surface-dark/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 p-4 pb-8">
+        <button className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-white shadow-lg shadow-primary/25 transition-transform active:scale-[0.98]">
+          <span className="material-symbols-outlined">calendar_add_on</span>
+          <span className="text-base font-bold">Đặt lịch hẹn mới</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+function getIcon(type: string) {
+  switch (type) {
+    case "dentistry":
+      return "dentistry";
+    case "orthopedics":
+      return "orthopedics";
+    case "surgery":
+      return "medical_services";
+    default:
+      return "history";
+  }
+}
+
+function getIconBackground(type: string) {
+  switch (type) {
+    case "dentistry":
+      return "bg-primary/10 text-primary";
+    case "orthopedics":
+      return "bg-purple-100 text-purple-600";
+    case "surgery":
+      return "bg-orange-100 text-orange-600";
+    default:
+      return "bg-slate-100 text-slate-500";
+  }
+}
+
+export default MedicalRecordsScreen;
