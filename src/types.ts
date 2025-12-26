@@ -1,14 +1,14 @@
-
-export enum Screen {
-  SPLASH = 'SPLASH',
-  LOGIN = 'LOGIN',
-  OTP = 'OTP',
-  HOME = 'HOME',
-  APPOINTMENTS = 'APPOINTMENTS',
-  DETAIL = 'DETAIL',
-  RECORDS = 'RECORDS',
-  AI_CONSULT = 'AI_CONSULT'
-}
+// export enum Screen {
+//   SPLASH = "SPLASH",
+//   LOGIN = "LOGIN",
+//   OTP = "OTP",
+//   HOME = "HOME",
+//   APPOINTMENTS = "APPOINTMENTS",
+//   DETAIL = "DETAIL",
+//   RECORDS = "RECORDS",
+//   AI_CONSULT = "AI_CONSULT",
+//   BOOKING = "BOOKING",
+// }
 
 export interface Appointment {
   id: string;
@@ -17,7 +17,7 @@ export interface Appointment {
   location: string;
   time: string;
   date: string;
-  status: 'confirmed' | 'pending' | 'completed' | 'cancelled';
+  status: "confirmed" | "pending" | "completed" | "cancelled";
   service: string;
   image?: string;
   price?: string;
@@ -29,5 +29,5 @@ export interface MedicalRecord {
   doctor: string;
   date: string;
   summary: string;
-  type: 'dentistry' | 'orthopedics' | 'surgery' | 'history';
+  type: "dentistry" | "orthopedics" | "surgery" | "history";
 }

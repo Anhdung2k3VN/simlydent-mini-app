@@ -1,10 +1,8 @@
 // React core
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-
-// Router
-import router from "@/router";
+// AppShell
+import AppShell from "@/app/ui/AppShell";
 
 // ZaUI stylesheet
 import "zmp-ui/zaui.min.css";
@@ -12,14 +10,8 @@ import "zmp-ui/zaui.min.css";
 import "@/css/tailwind.scss";
 // Your stylesheet
 import "@/css/app.scss";
-
-// Expose app configuration
-import appConfig from "../app-config.json";
-
-if (!window.APP_CONFIG) {
-  window.APP_CONFIG = appConfig;
-}
+import "@/css/fonts.css";
 
 // Mount the app
 const root = createRoot(document.getElementById("app")!);
-root.render(createElement(RouterProvider, { router }));
+root.render(createElement(AppShell));
